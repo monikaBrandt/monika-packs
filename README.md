@@ -264,3 +264,11 @@ Acknowledgements
 ================
 The docker environment provided here has been heavily inspired by the ones provided by
 [StackStorm](https://github.com/StackStorm/st2-docker) and [UMCCR](https://github.com/umccr/st2-arteria-docker).
+
+Notes
+======
+```
+make up
+docker exec -it monika-packs_st2client_1 bash
+st2 run arteria.analysis_service cmd="start" url="http://<my-ip>:8080" analysis_body='{"wp": "wp1", "analysis": "GMS560", "inbox_path": "/path/to/inbox/"}'
+```
