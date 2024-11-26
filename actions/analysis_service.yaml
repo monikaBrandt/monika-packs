@@ -1,0 +1,34 @@
+---
+name: "analysis_service"
+runner_type: "python-script"
+description: "Pass commands to the analysis service"
+enabled: true
+entry_point: "analysis_service.py"
+parameters:
+      cmd:
+        type: "string"
+        description: "Command to issue to the analysis services. Options are: start/poll"
+        required: true
+        position: 0
+      url:
+        type: "string"
+        description: "URL to analysis-service. Required for command: start"
+        required: false
+        position: 1
+        default: "http://<my-ip>:8080"
+      analysis_body:
+        type: "string"
+        description: "A string of the body to pass to the analysis-service to set its options. Valid with commands: start"
+        required: false
+        position: 2
+      status_url:
+        type: "string"
+        description: "Url used to poll for the status of a analysis run. Valid with command: poll"
+        required: false
+        position: 3
+      sleep:
+        type: "integer"
+        description: "Seconds to sleep between polling.Valid with command: poll"
+        required: false
+        position: 4
+        default: 300 #minutes

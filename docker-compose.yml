@@ -169,7 +169,6 @@ services:
       - private
     volumes:
       - ./files/st2.docker.conf:/etc/st2/st2.docker.conf:ro
-    dns_search: .
   st2client:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2actionrunner:${ST2_VERSION:-latest}
     restart: on-failure
@@ -255,3 +254,4 @@ volumes:
 networks:
   private:
     driver: bridge
+
