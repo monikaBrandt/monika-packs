@@ -111,6 +111,7 @@ services:
       # Action runner needs access to keys since action definitions (Jinja
       # templates) can reference secrets
       - stackstorm-keys:/etc/st2/keys:ro
+      - /home/monika/.ssh_stackstorm:/etc/ssh_keys:ro
   st2garbagecollector:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2garbagecollector:${ST2_VERSION:-latest}
     restart: on-failure
