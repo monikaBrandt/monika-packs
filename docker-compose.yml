@@ -12,7 +12,7 @@ services:
 
   st2makesecrets:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2actionrunner:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     networks:
       - private
     volumes:
@@ -22,7 +22,7 @@ services:
     dns_search: .
   st2api:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2api:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - mongo
       - rabbitmq
@@ -45,7 +45,7 @@ services:
     dns_search: .
   st2stream:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2stream:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - st2api
     networks:
@@ -56,7 +56,7 @@ services:
     dns_search: .
   st2scheduler:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2scheduler:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - redis
       - st2api
@@ -68,7 +68,7 @@ services:
     dns_search: .
   st2workflowengine:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2workflowengine:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - redis
       - st2api
@@ -81,7 +81,7 @@ services:
     dns_search: .
   st2auth:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2auth:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - st2api
     networks:
@@ -93,7 +93,7 @@ services:
     dns_search: .
   st2actionrunner:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2actionrunner:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - redis
       - st2api
@@ -114,7 +114,7 @@ services:
       - /home/monika/.ssh_stackstorm:/etc/ssh_keys:ro
   st2garbagecollector:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2garbagecollector:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - st2api
     networks:
@@ -125,7 +125,7 @@ services:
     dns_search: .
   st2notifier:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2notifier:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - redis
       - st2api
@@ -137,7 +137,7 @@ services:
     dns_search: .
   st2rulesengine:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2rulesengine:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - st2api
     networks:
@@ -148,7 +148,7 @@ services:
     dns_search: .
   st2sensorcontainer:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2sensorcontainer:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - st2api
     networks:
@@ -163,7 +163,7 @@ services:
     dns_search: .
   st2timersengine:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2timersengine:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - st2api
     networks:
@@ -172,7 +172,7 @@ services:
       - ./files/st2.docker.conf:/etc/st2/st2.docker.conf:ro
   st2client:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2actionrunner:${ST2_VERSION:-latest}
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - st2auth
       - st2api
@@ -206,7 +206,7 @@ services:
 # external stackstom services
   mongo:
     image: mongo:4.4
-    restart: on-failure
+    restart: unless-stopped
     # environment:
     #   MONGO_INITDB_NAME: st2
     #   MONGO_INITDB_ROOT_USERNAME: mongoA
@@ -220,7 +220,7 @@ services:
     dns_search: .
   rabbitmq:
     image: rabbitmq:3.8
-    restart: on-failure
+    restart: unless-stopped
     networks:
       - private
     volumes:
@@ -228,7 +228,7 @@ services:
     dns_search: .
   redis:
     image: redis:6.2
-    restart: on-failure
+    restart: unless-stopped
     networks:
       - private
     volumes:
